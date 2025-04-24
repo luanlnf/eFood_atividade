@@ -18,16 +18,16 @@ export const Card = styled.div`
 
   img {
     width: 100%;
-    height: auto; /* Garante que a imagem não distorça */
+    height: auto;
   }
 `
 
 export const CardContent = styled.div`
   padding: 16px;
   display: flex;
-  flex-direction: column; /* Empurra os itens para baixo */
-  justify-content: space-between; /* Garante que o botão fique no fundo */
-  flex-grow: 1; /* Permite que o conteúdo se expanda para preencher o espaço restante */
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
 `
 
 export const Titulo = styled.h3`
