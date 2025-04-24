@@ -5,7 +5,8 @@ export const cores = {
   amarelo: '#FFB930',
   brancoBotao: '#FFEBD9',
   FundoBranco: '#FFF8F2',
-  cinzaClaro: '#A3A3A3'
+  cinzaClaro: '#A3A3A3',
+  branco: '#FFFFFF'
 }
 
 export const GlobalStyle = createGlobalStyle`
@@ -20,7 +21,6 @@ export const GlobalStyle = createGlobalStyle`
   body {
     background-color: ${cores.FundoBranco};
     color: ${cores.Rosa};
-    padding-top: 40px;
   }
 
   .container {

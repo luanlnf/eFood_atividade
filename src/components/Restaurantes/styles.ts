@@ -3,17 +3,33 @@ import { cores } from '../../styles'
 import { TagConatiner } from '../Tag/styles'
 
 export const Card = styled.div`
-  background-color: ${cores.FundoBranco};
+  width: 472px;
+  min-height: 398px;
+  background-color: ${cores.branco};
   border: 1px solid ${cores.Rosa};
-  padding: 8px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   ${TagConatiner} {
     margin-right: 8px;
   }
+
   img {
     width: 100%;
+    height: auto; /* Garante que a imagem não distorça */
   }
 `
+
+export const CardContent = styled.div`
+  padding: 16px;
+  display: flex;
+  flex-direction: column; /* Empurra os itens para baixo */
+  justify-content: space-between; /* Garante que o botão fique no fundo */
+  flex-grow: 1; /* Permite que o conteúdo se expanda para preencher o espaço restante */
+`
+
 export const Titulo = styled.h3`
   font-weight: 700;
   font-size: 18px;
@@ -47,13 +63,18 @@ export const FlexTituloNota = styled.div`
   align-items: center;
 `
 
-export const Nota = styled.span`
+export const Nota = styled.div`
   font-size: 16px;
   font-weight: bold;
   background-color: transparent;
   color: ${cores.Rosa};
-  padding: 4px 8px;
-  border-radius: 8px;
+  margin-left: auto;
+  padding: 0 auto;
+  span {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+  }
 `
 
 export const Infos = styled.div`

@@ -6,11 +6,12 @@ export const Imagem = styled.div`
   height: 360px;
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 0;
+  padding: 0;
 `
 export const ImagemLogo = styled.img`
   width: 125px;

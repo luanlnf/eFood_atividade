@@ -7,7 +7,8 @@ import {
   Titulo,
   BotaoVerMais,
   FlexTituloNota,
-  Nota
+  Nota,
+  CardContent
 } from './styles'
 
 type Props = {
@@ -28,17 +29,19 @@ const Product = ({ description, image, title, infos, nota, id }: Props) => (
         <Tag key={info}>{info}</Tag>
       ))}
     </Infos>
-    <FlexTituloNota>
-      <Titulo>{title}</Titulo>
-      <Nota>
-        {nota}
-        <span>⭐</span>
-      </Nota>
-    </FlexTituloNota>
-    <Descricao>{description}</Descricao>
-    <Link to={`/perfil/${id}`}>
-      <BotaoVerMais>Ver mais</BotaoVerMais>
-    </Link>
+    <CardContent>
+      <FlexTituloNota>
+        <Titulo>{title}</Titulo>
+        <Nota>
+          {nota}
+          <span>⭐</span>
+        </Nota>
+      </FlexTituloNota>
+      <Descricao>{description}</Descricao>
+      <Link to={`/perfil/${id}`}>
+        <BotaoVerMais>Saiba mais</BotaoVerMais>
+      </Link>
+    </CardContent>
   </Card>
 )
 

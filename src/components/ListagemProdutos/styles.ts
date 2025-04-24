@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
+  width: 1024px;
+  min-height: 708px;
   padding: 32px 0;
-  margin-bottom: 40px;
-  margin-left: 80px;
-  margin-right: 80px;
+  margin: 0 auto 40px auto;
 `
 export const List = styled.ul`
   display: grid;
