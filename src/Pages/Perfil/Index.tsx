@@ -1,60 +1,52 @@
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import HederPequeno from '../../components/HeaderPequeno'
-import Cardapio from '../../models/cardapio'
 import ListaProdutos from '../../components/ListagemProdutos'
 import Footer from '../../components/Footer'
-import pizza from '../../assets/pizza.png'
+import Cardapio from '../../models/cardapio'
 
-const cardapio: Cardapio[] = [
-  {
-    id: 1,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: pizza
-  },
-  {
-    id: 2,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: pizza
-  },
-  {
-    id: 3,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: pizza
-  },
-  {
-    id: 4,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: pizza
-  },
-  {
-    id: 5,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: pizza
-  },
-  {
-    id: 6,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: pizza
-  }
-]
+type Restaurante = {
+  id: number
+  titulo: string
+  tipo: string
+  capa: string
+  cardapio: Cardapio[]
+}
 
-const Perfil = () => (
-  <>
-    <HederPequeno />
-    <ListaProdutos products={cardapio} />
-    <Footer />
-  </>
-)
+const Perfil = () => {
+  const { id } = useParams()
+  const [restaurante, setRestaurante] = useState<Restaurante | null>(null)
+
+  useEffect(() => {
+    fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setRestaurante(data)
+      })
+  }, [id])
+
+  if (!restaurante) return <p>Carregando...</p>
+
+  return (
+    <>
+      <HederPequeno
+        nome={restaurante.titulo}
+        tipo={restaurante.tipo}
+        imagem={restaurante.capa}
+      />
+      <ListaProdutos
+        products={restaurante.cardapio.map((item: Cardapio) => ({
+          id: item.id,
+          nome: item.nome,
+          descricao: item.descricao,
+          foto: item.foto,
+          preco: item.preco,
+          porcao: item.porcao
+        }))}
+      />
+      <Footer />
+    </>
+  )
+}
 
 export default Perfil

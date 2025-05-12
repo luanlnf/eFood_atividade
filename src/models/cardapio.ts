@@ -1,15 +1,8 @@
-class Cardapio {
+export default interface Cardapio {
   id: number
-  title: string
-  description: string
-  image: string
-
-  constructor(id: number, title: string, description: string, image: string) {
-    this.id = id
-    this.title = title
-    this.description = description
-    this.image = image
-  }
+  nome: string
+  descricao: string
+  foto: string
+  preco: number
+  porcao: string
 }
-
-export default Cardapio

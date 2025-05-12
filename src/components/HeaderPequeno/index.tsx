@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import logo from '../../assets/logo.png'
 import vector from '../../assets/Vector.png'
-import apresentacao from '../../assets/apresentacao.png'
 import {
   Header,
   Imagem,
@@ -11,7 +10,13 @@ import {
   NomeRestaurante
 } from './styles'
 
-const HederPequeno = () => (
+type Props = {
+  nome: string
+  tipo: string
+  imagem: string
+}
+
+const HederPequeno = ({ nome, tipo, imagem }: Props) => (
   <>
     <Header style={{ backgroundImage: `url(${vector})` }}>
       <Link to={'/'}>
@@ -21,9 +26,9 @@ const HederPequeno = () => (
       <LinkCart href="#">0 - Produto(s) no carrinho</LinkCart>
     </Header>
     <ImagemRestaurante>
-      <img src={apresentacao} alt="italiana" />
-      <TipoRestaurante>Italiana</TipoRestaurante>
-      <NomeRestaurante>La Dolce Vita Trattoria</NomeRestaurante>
+      <img src={imagem} alt={tipo} />
+      <TipoRestaurante>{tipo}</TipoRestaurante>
+      <NomeRestaurante>{nome}</NomeRestaurante>
     </ImagemRestaurante>
   </>
 )
