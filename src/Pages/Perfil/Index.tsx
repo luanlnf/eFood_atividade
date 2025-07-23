@@ -1,29 +1,13 @@
-import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import HederPequeno from '../../components/HeaderPequeno'
 import ListaProdutos from '../../components/ListagemProdutos'
 import Footer from '../../components/Footer'
-import Cardapio from '../../models/cardapio'
-
-type Restaurante = {
-  id: number
-  titulo: string
-  tipo: string
-  capa: string
-  cardapio: Cardapio[]
-}
+import { Cardapio } from '../../models/cardapio'
+import { useGetPerfilQuery } from '../../services/api'
 
 const Perfil = () => {
   const { id } = useParams()
-  const [restaurante, setRestaurante] = useState<Restaurante | null>(null)
-
-  useEffect(() => {
-    fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setRestaurante(data)
-      })
-  }, [id])
+  const { data: restaurante } = useGetPerfilQuery(id!)
 
   if (!restaurante) return <p>Carregando...</p>
 

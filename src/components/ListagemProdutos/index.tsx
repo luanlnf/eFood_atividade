@@ -1,5 +1,5 @@
 import { Container, List } from './styles'
-import Cardapio from '../../models/cardapio'
+import { Cardapio } from '../../models/cardapio'
 import Produtos from '../Produtos'
 
 export type Props = {

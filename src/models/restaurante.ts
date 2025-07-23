@@ -1,11 +1,9 @@
-type Restaurante = {
-  id: number
-  title: string
-  description: string
-  image: string
-  category: string
-  infos: string[]
-  nota: number
-}
+import { Cardapio } from './cardapio'
 
-export default Restaurante
+export type Restaurante = {
+  id: number
+  titulo: string
+  tipo: string
+  capa: string
+  cardapio: Cardapio[]
+}

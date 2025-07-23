@@ -1,4 +1,4 @@
-export default interface Cardapio {
+export interface Cardapio {
   id: number
   nome: string
   descricao: string
