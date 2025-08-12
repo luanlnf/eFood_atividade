@@ -26,11 +26,16 @@ export const List = styled.ul`
   margin-bottom: 40px;
 
   @media (max-width: 768px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
     margin-top: 20px;
     margin-bottom: 20px;
     justify-items: center;
     width: 100%;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
 `
