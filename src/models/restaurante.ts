@@ -5,5 +5,9 @@ export type Restaurante = {
   titulo: string
   tipo: string
   capa: string
+  descricao: string
+  avaliacao: number
   cardapio: Cardapio[]
 }
+
+export type { Cardapio }

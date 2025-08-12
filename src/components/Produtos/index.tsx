@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import { Card, Titulo, Descricao, Botao, Modal, Overlay } from './styles'
+import { useDispatch } from 'react-redux'
+import { addProduct, open } from '../../store/reducers/cart'
 
 type Props = {
+  id: number
   nome: string
   descricao: string
   foto: string
@@ -9,11 +12,30 @@ type Props = {
   porcao: string
 }
 
-const Produtos = ({ nome, descricao, foto, preco, porcao }: Props) => {
+const Produtos = ({ id, nome, descricao, foto, preco, porcao }: Props) => {
   const [isModalVisible, setModalVisible] = useState(false)
 
   const openModal = () => setModalVisible(true)
   const closeModal = () => setModalVisible(false)
+  const dispatch = useDispatch()
+
+  const addToCart = () => {
+    dispatch(
+      addProduct({
+        id,
+        nome,
+        descricao,
+        foto,
+        preco,
+        porcao
+      })
+    )
+    dispatch(open())
+  }
+  const handleClick = () => {
+    addToCart()
+    closeModal()
+  }
 
   return (
     <>
@@ -36,7 +58,7 @@ const Produtos = ({ nome, descricao, foto, preco, porcao }: Props) => {
               <Titulo>{nome}</Titulo>
               <Descricao>{descricao}</Descricao>
               <p>Serve: {porcao}</p>
-              <Botao>
+              <Botao onClick={handleClick}>
                 Adicionar ao carrinho – R$ {preco.toFixed(2).replace('.', ',')}
               </Botao>
             </div>

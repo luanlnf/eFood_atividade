@@ -4,11 +4,14 @@ import vector from '../../assets/Vector.png'
 import {
   Header,
   Imagem,
-  LinkCart,
+  CartButton,
   ImagemRestaurante,
   TipoRestaurante,
   NomeRestaurante
 } from './styles'
+import { open } from '../../store/reducers/cart'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../store'
 
 type Props = {
   nome: string
@@ -16,21 +19,32 @@ type Props = {
   imagem: string
 }
 
-const HederPequeno = ({ nome, tipo, imagem }: Props) => (
-  <>
-    <Header style={{ backgroundImage: `url(${vector})` }}>
-      <Link to={'/'}>
-        <span>Restaurantes</span>
-      </Link>
-      <Imagem src={logo} alt="efood" />
-      <LinkCart href="#">0 - Produto(s) no carrinho</LinkCart>
-    </Header>
-    <ImagemRestaurante>
-      <img src={imagem} alt={tipo} />
-      <TipoRestaurante>{tipo}</TipoRestaurante>
-      <NomeRestaurante>{nome}</NomeRestaurante>
-    </ImagemRestaurante>
-  </>
-)
+const HederPequeno = ({ nome, tipo, imagem }: Props) => {
+  const dispatch = useDispatch()
+  const { items } = useSelector((state: RootState) => state.cart)
+
+  const openCart = () => {
+    dispatch(open())
+  }
+
+  return (
+    <>
+      <Header style={{ backgroundImage: `url(${vector})` }}>
+        <Link to={'/'}>
+          <span>Restaurantes</span>
+        </Link>
+        <Imagem src={logo} alt="efood" />
+        <CartButton onClick={openCart}>
+          {items.length} - Produto(s) no carrinho
+        </CartButton>
+      </Header>
+      <ImagemRestaurante>
+        <img src={imagem} alt={tipo} />
+        <TipoRestaurante>{tipo}</TipoRestaurante>
+        <NomeRestaurante>{nome}</NomeRestaurante>
+      </ImagemRestaurante>
+    </>
+  )
+}
 
 export default HederPequeno

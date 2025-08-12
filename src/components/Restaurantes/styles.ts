@@ -20,6 +20,18 @@ export const Card = styled.div`
     width: 100%;
     height: auto;
   }
+
+  /* Tablet: largura menor para caber 2 colunas */
+  @media (max-width: 1024px) and (min-width: 769px) {
+    width: 45vw; /* ou algo próximo para caber duas colunas */
+    max-width: 320px; /* para não passar do tamanho original */
+  }
+
+  /* Celular */
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: 320px;
+  }
 `
 
 export const CardContent = styled.div`

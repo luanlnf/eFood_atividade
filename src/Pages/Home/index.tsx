@@ -4,14 +4,12 @@ import Hero from '../../components/Hero'
 import Footer from '../../components/Footer'
 
 const Home = () => {
-  const { data: Restaurantes } = useGetRestauranteQuery()
-
-  if (!Restaurantes) return <p>Carregando...</p>
+  const { data: restaurantes } = useGetRestauranteQuery()
 
   return (
     <>
       <Hero />
-      <ListagemRestaurente title="Restaurantes" products={Restaurantes || []} />
+      <ListagemRestaurente title="restaurantes" products={restaurantes || []} />
       <Footer />
     </>
   )

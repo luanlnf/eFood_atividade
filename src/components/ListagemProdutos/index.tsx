@@ -17,6 +17,7 @@ const ListaProdutos = ({ products }: Props) => (
             foto={product.foto}
             preco={product.preco}
             porcao={product.porcao}
+            id={0}
           />
         ))}
       </List>

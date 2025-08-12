@@ -12,14 +12,14 @@ const ListagemRestaurente = ({ products }: Props) => (
       <List>
         {products.map((product) => (
           <Product
-            category={''}
-            description={''}
-            image={''}
-            title={''}
-            infos={[]}
-            nota={0}
+            category={product.tipo}
+            description={product.descricao}
+            image={product.capa}
+            title={product.titulo}
+            infos={[]} // pode manter vazio se não usar agora
+            nota={product.avaliacao} // ou use alguma nota fixa/mock se ainda não tiver no objeto
             key={product.id}
-            {...product}
+            id={product.id}
           />
         ))}
       </List>

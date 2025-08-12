@@ -18,6 +18,20 @@ export const Header = styled.header`
     font-weight: bold;
     text-decoration: none;
   }
+  @media (max-width: 1024px) {
+    height: 140px;
+    padding: 0 40px;
+  }
+
+  @media (max-width: 768px) {
+    height: 120px;
+    padding: 0 20px;
+  }
+
+  @media (max-width: 480px) {
+    height: 100px;
+    padding: 0 10px;
+  }
 `
 
 export const Imagem = styled.img`
@@ -25,9 +39,17 @@ export const Imagem = styled.img`
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+
+  @media (max-width: 768px) {
+    width: 90px;
+    position: relative;
+    left: auto;
+    transform: none;
+    margin: 0 auto;
+  }
 `
 
-export const LinkCart = styled.a`
+export const CartButton = styled.a`
   color: ${cores.Rosa};
   font-weight: bold;
   text-decoration: none;

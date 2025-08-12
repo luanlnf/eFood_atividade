@@ -4,14 +4,14 @@ import { Restaurante } from '../models/restaurante'
 const api = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://fake-api-tau.vercel.app/api/efood'
+    baseUrl: 'https://ebac-fake-api.vercel.app/api/efood'
   }),
   endpoints: (builder) => ({
     getRestaurante: builder.query<Restaurante[], void>({
-      query: () => 'Restaurantes'
+      query: () => 'restaurantes'
     }),
     getPerfil: builder.query<Restaurante, string>({
-      query: (id) => `Restaurantes/${id}`
+      query: (id) => `restaurantes/${id}`
     })
   })
 })

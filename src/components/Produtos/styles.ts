@@ -12,6 +12,16 @@ export const Card = styled.div`
   img {
     width: 100%;
   }
+
+  @media (max-width: 1024px) {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    padding: 8px 4px;
+  }
 `
 
 export const Titulo = styled.h3`
@@ -53,8 +63,9 @@ export const Modal = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 1024px;
-  height: 344px;
+  width: 90%;
+  max-width: 1024px;
+  max-height: 90vh;
   padding: 24px;
   background-color: ${cores.Rosa};
   z-index: 1;
@@ -62,11 +73,19 @@ export const Modal = styled.div`
   align-items: center;
   gap: 16px;
   color: ${cores.FundoBranco};
+  box-sizing: border-box;
+  overflow-y: auto;
+  border-radius: 8px;
 
   img {
     width: 280px;
     height: 280px;
     object-fit: cover;
+
+    @media (max-width: 768px) {
+      width: 180px;
+      height: 180px;
+    }
   }
 
   & > h3 {
@@ -81,6 +100,7 @@ export const Modal = styled.div`
     font-weight: 400;
     padding-left: 24px;
   }
+
   .close-button {
     position: absolute;
     top: 8px;
@@ -90,5 +110,16 @@ export const Modal = styled.div`
     color: ${cores.FundoBranco};
     font-size: 24px;
     cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+
+    & > h3,
+    & > p {
+      padding-left: 0;
+      text-align: center;
+    }
   }
 `

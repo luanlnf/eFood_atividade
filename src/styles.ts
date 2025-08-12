@@ -28,4 +28,23 @@ export const GlobalStyle = createGlobalStyle`
     width: 100%;
     margin: 0 auto;
   }
+
+  /* Tablet */
+  @media (max-width: 1024px) {
+    .container {
+      padding: 0 15px;
+    }
+  }
+
+  /* Celular */
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 10px;
+    }
+
+    body {
+      font-size: 14px;
+    }
+  }
+
 `
