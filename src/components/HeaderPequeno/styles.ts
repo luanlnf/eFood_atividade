@@ -53,6 +53,7 @@ export const CartButton = styled.a`
   color: ${cores.Rosa};
   font-weight: bold;
   text-decoration: none;
+  cursor: pointer;
 `
 export const ImagemRestaurante = styled.div`
   position: relative;

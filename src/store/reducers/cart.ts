@@ -27,9 +27,13 @@ const cartSlice = createSlice({
     // remove pelo índice
     removeProduct: (state, action: PayloadAction<number>) => {
       state.items.splice(action.payload, 1)
+    },
+    clearCart(state) {
+      state.items = []
     }
   }
 })
 
-export const { addProduct, open, close, removeProduct } = cartSlice.actions
+export const { addProduct, open, close, removeProduct, clearCart } =
+  cartSlice.actions
 export default cartSlice.reducer

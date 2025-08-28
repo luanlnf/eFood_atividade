@@ -160,6 +160,14 @@ export const InputGroup = styled.div`
     height: 32px;
     padding: 0 8px;
     width: 100%;
+
+    &.error {
+      border: 5px solid red;
+    }
+  }
+  span {
+    font-size: 12px;
+    color: ${cores.branco};
   }
 `
 export const ButonesContainer = styled.div`
