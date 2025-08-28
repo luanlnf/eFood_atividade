@@ -27,6 +27,7 @@ export const CartContainer = styled.div`
 `
 export const BotaoCarrinho = styled(BotaoBase)`
   width: 100%;
+  margin: 0;
   display: block;
 `
 
@@ -134,4 +135,51 @@ export const Comida = styled.li`
       }
     }
   }
+`
+export const Row = styled.div`
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+`
+
+export const InputGroup = styled.div`
+  flex: 1;
+
+  label {
+    font-size: 14px;
+    display: block;
+    margin-bottom: 4px;
+    color: ${cores.branco};
+    margin-top: 8px;
+  }
+
+  input,
+  select {
+    background-color: ${cores.FundoBranco};
+    border: 1px solid ${cores.branco};
+    height: 32px;
+    padding: 0 8px;
+    width: 100%;
+  }
+`
+export const ButonesContainer = styled.div`
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`
+export const TextFor = styled.p`
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  color: ${cores.branco};
+  margin-top: 18px;
+  margin-bottom: 24px;
+`
+export const Titulos = styled.h3`
+  font-size: 16px;
+  font-weight: 700;
+  font-style: bold;
+  color: ${cores.branco};
+  margin-bottom: 16px;
 `
