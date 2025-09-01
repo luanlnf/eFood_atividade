@@ -100,21 +100,6 @@ export const Comida = styled.li`
     }
   }
 
-  span {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 14px;
-    font-weight: 400;
-
-    @media (max-width: 768px) {
-      font-size: 12px;
-    }
-    @media (max-width: 480px) {
-      font-size: 10px;
-    }
-  }
-
   .delete-button {
     background-color: transparent;
     border: none;
@@ -136,6 +121,21 @@ export const Comida = styled.li`
     }
   }
 `
+export const InfoSpan = styled.span`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  font-weight: 400;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
+  @media (max-width: 480px) {
+    font-size: 10px;
+  }
+`
+
 export const Row = styled.div`
   display: flex;
   gap: 16px;
@@ -189,5 +189,41 @@ export const Titulos = styled.h3`
   font-weight: 700;
   font-style: bold;
   color: ${cores.branco};
+  margin-bottom: 16px;
+`
+export const Quanty = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px; // espaço entre botões e número
+  font-size: 16px;
+  font-weight: 700;
+  color: ${cores.Rosa};
+  margin-bottom: 16px;
+
+  button {
+    margin-top: 8px;
+    background-color: ${cores.Rosa};
+    color: ${cores.branco};
+    border: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+`
+
+export const Subtotal = styled.div`
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 16px;
 `

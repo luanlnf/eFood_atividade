@@ -1,8 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Cardapio } from '../../models/restaurante'
 
+// Novo tipo que inclui quantidade
+export type CartItem = Cardapio & { quantidade: number }
+
 type CartState = {
-  items: Cardapio[]
+  items: CartItem[]
   isOpen: boolean
 }
 
@@ -16,7 +19,16 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addProduct: (state, action: PayloadAction<Cardapio>) => {
-      state.items.push(action.payload)
+      const p = action.payload
+      const existingItem = state.items.find(
+        (item) => item.id === p.id && item.nome === p.nome
+      )
+
+      if (existingItem) {
+        existingItem.quantidade += 1
+      } else {
+        state.items.push({ ...p, quantidade: 1 })
+      }
     },
     open: (state) => {
       state.isOpen = true
@@ -24,9 +36,22 @@ const cartSlice = createSlice({
     close: (state) => {
       state.isOpen = false
     },
-    // remove pelo índice
-    removeProduct: (state, action: PayloadAction<number>) => {
-      state.items.splice(action.payload, 1)
+    removeProduct: (
+      state,
+      action: PayloadAction<{ id: number; nome: string }>
+    ) => {
+      const index = state.items.findIndex(
+        (item) =>
+          item.id === action.payload.id && item.nome === action.payload.nome
+      )
+
+      if (index >= 0) {
+        if (state.items[index].quantidade > 1) {
+          state.items[index].quantidade -= 1
+        } else {
+          state.items.splice(index, 1)
+        }
+      }
     },
     clearCart(state) {
       state.items = []

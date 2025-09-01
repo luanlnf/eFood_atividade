@@ -3,7 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { RootState } from '../../store'
-import { close, removeProduct, clearCart } from '../../store/reducers/cart'
+import {
+  close,
+  removeProduct,
+  clearCart,
+  addProduct,
+  CartItem
+} from '../../store/reducers/cart'
 import { usePurchaseMutation } from '../../services/api'
 import { CheckoutStep } from '../../types'
 import {
@@ -18,28 +24,36 @@ import {
   InputGroup,
   ButonesContainer,
   TextFor,
-  Titulos
+  Titulos,
+  Quanty,
+  Subtotal,
+  InfoSpan
 } from './styled'
 import lixeira from '../../assets/lixeira.png'
+import { useNavigate } from 'react-router-dom'
 
 const Cart = () => {
   const { isOpen, items } = useSelector((state: RootState) => state.cart)
   const dispatch = useDispatch()
   const [step, setStep] = useState<CheckoutStep>(CheckoutStep.CART)
-
+  const navigate = useNavigate()
   // mutation do checkout
   const [purchase, { data, isLoading, isError }] = usePurchaseMutation()
 
   const closeCart = () => {
     dispatch(close())
-    dispatch(clearCart())
     setStep(CheckoutStep.CART)
   }
 
   const getTotalPreco = () =>
-    items.reduce((total, item) => total + item.preco, 0)
+    items.reduce((total, item) => total + item.preco * item.quantidade, 0)
 
-  const removeItem = (index: number) => dispatch(removeProduct(index))
+  const removeItem = (p: { id: number; nome: string }) =>
+    dispatch(removeProduct(p))
+
+  const addItem = (produto: CartItem) => {
+    dispatch(addProduct(produto))
+  }
 
   // --- Yup Schemas ---
   const deliverySchema = Yup.object({
@@ -137,15 +151,34 @@ const Cart = () => {
         return (
           <>
             <ul>
-              {items.map((item, index) => (
-                <Comida key={index}>
+              {items.map((item) => (
+                <Comida key={`${item.id}-${item.nome}`}>
                   <img src={item.foto} alt={item.nome} />
                   <div className="info">
                     <h3>{item.nome}</h3>
-                    <span>R$:{item.preco.toFixed(2).replace('.', ',')}</span>
+                    <Subtotal>
+                      <Quanty>
+                        <button
+                          onClick={() =>
+                            removeItem({ id: item.id, nome: item.nome })
+                          }
+                        >
+                          -
+                        </button>
+                        <span>{item.quantidade}</span>
+                        <button onClick={() => addItem(item)}>+</button>
+                      </Quanty>
+
+                      <Quanty>
+                        R$:{' '}
+                        {(item.preco * item.quantidade)
+                          .toFixed(2)
+                          .replace('.', ',')}
+                      </Quanty>
+                    </Subtotal>
                   </div>
                   <button
-                    onClick={() => removeItem(index)}
+                    onClick={() => removeItem({ id: item.id, nome: item.nome })}
                     className="delete-button"
                   >
                     <img src={lixeira} alt="Lixeira" />
@@ -184,7 +217,7 @@ const Cart = () => {
                 min={5}
               />
               {deliveryForm.touched.name && deliveryForm.errors.name && (
-                <span>{deliveryForm.errors.name}</span>
+                <InfoSpan>{deliveryForm.errors.name}</InfoSpan>
               )}
             </InputGroup>
 
@@ -201,7 +234,7 @@ const Cart = () => {
                 placeholder="Rua, Avenida, Travessa, etc"
               />
               {deliveryForm.touched.address && deliveryForm.errors.address && (
-                <span>{deliveryForm.errors.address}</span>
+                <InfoSpan>{deliveryForm.errors.address}</InfoSpan>
               )}
             </InputGroup>
 
@@ -217,7 +250,7 @@ const Cart = () => {
                 className={checkInputHasError('city') ? 'error' : ''}
               />
               {deliveryForm.touched.city && deliveryForm.errors.city && (
-                <span>{deliveryForm.errors.city}</span>
+                <InfoSpan>{deliveryForm.errors.city}</InfoSpan>
               )}
             </InputGroup>
 
@@ -237,7 +270,7 @@ const Cart = () => {
                   placeholder="00000-000"
                 />
                 {deliveryForm.touched.cep && deliveryForm.errors.cep && (
-                  <span>{deliveryForm.errors.cep}</span>
+                  <InfoSpan>{deliveryForm.errors.cep}</InfoSpan>
                 )}
               </InputGroup>
 
@@ -253,7 +286,7 @@ const Cart = () => {
                   className={checkInputHasError('number') ? 'error' : ''}
                 />
                 {deliveryForm.touched.number && deliveryForm.errors.number && (
-                  <span>{deliveryForm.errors.number}</span>
+                  <InfoSpan>{deliveryForm.errors.number}</InfoSpan>
                 )}
               </InputGroup>
             </Row>
@@ -304,7 +337,7 @@ const Cart = () => {
                 placeholder="Nome no cartão"
               />
               {paymentForm.touched.cardName && paymentForm.errors.cardName && (
-                <span>{paymentForm.errors.cardName}</span>
+                <InfoSpan>{paymentForm.errors.cardName}</InfoSpan>
               )}
             </InputGroup>
 
@@ -325,7 +358,7 @@ const Cart = () => {
                 />
                 {paymentForm.touched.cardNumber &&
                   paymentForm.errors.cardNumber && (
-                    <span>{paymentForm.errors.cardNumber}</span>
+                    <InfoSpan>{paymentForm.errors.cardNumber}</InfoSpan>
                   )}
               </InputGroup>
               <InputGroup style={{ flex: 1 }}>
@@ -343,7 +376,7 @@ const Cart = () => {
                   placeholder="CVV"
                 />
                 {paymentForm.touched.cvv && paymentForm.errors.cvv && (
-                  <span>{paymentForm.errors.cvv}</span>
+                  <InfoSpan>{paymentForm.errors.cvv}</InfoSpan>
                 )}
               </InputGroup>
             </Row>
@@ -364,7 +397,7 @@ const Cart = () => {
                   placeholder="MM"
                 />
                 {paymentForm.touched.month && paymentForm.errors.month && (
-                  <span>{paymentForm.errors.month}</span>
+                  <InfoSpan>{paymentForm.errors.month}</InfoSpan>
                 )}
               </InputGroup>
 
@@ -382,7 +415,7 @@ const Cart = () => {
                   placeholder="YYYY"
                 />
                 {paymentForm.touched.year && paymentForm.errors.year && (
-                  <span>{paymentForm.errors.year}</span>
+                  <InfoSpan>{paymentForm.errors.year}</InfoSpan>
                 )}
               </InputGroup>
             </Row>
@@ -427,7 +460,17 @@ const Cart = () => {
             <TextFor>
               Higienize as mãos após o recebimento do pedido. Boa refeição!
             </TextFor>
-            <BotaoCarrinho onClick={closeCart}>Concluir</BotaoCarrinho>
+            <BotaoCarrinho
+              onClick={() => {
+                dispatch(clearCart())
+                deliveryForm.resetForm()
+                paymentForm.resetForm()
+                closeCart()
+                navigate('/')
+              }}
+            >
+              Concluir
+            </BotaoCarrinho>
           </>
         )
     }
